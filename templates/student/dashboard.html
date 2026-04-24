@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h5 class="fw-bold text-secondary mb-3">
+            <i class="fa-solid fa-user-graduate me-2"></i> Mening Davomatim
+        </h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="custom-card shadow-sm border-top" style="border-width: 4px !important; border-color: #4318FF !important;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold text-dark mb-0">
+                    <i class="fa-solid fa-chart-pie text-primary me-2"></i> Fanlar bo'yicha qoldirilgan darslar (NB)
+                </h5>
+                <span class="badge bg-light text-dark border px-3 py-2">
+                    <i class="fa-regular fa-calendar me-1"></i> Bugungi holat
+                </span>
+            </div>
+
+            {% if absences %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle border-top">
+                        <thead class="bg-light text-muted">
+                            <tr>
+                                <th>Fan nomi</th>
+                                <th class="text-center">Jami NB lar soni</th>
+                                <th>Holat / Xulosa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in absences %}
+                            <tr>
+                                <td class="fw-bold text-dark py-3">
+                                    <i class="fa-solid fa-book-bookmark text-secondary me-2"></i> {{ item.subject__name }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-danger rounded-pill fs-6 px-3 py-2 shadow-sm">
+                                        {{ item.total_nb }} marta
+                                    </span>
+                                </td>
+                                <td>
+                                    <!-- Logik qism: NB soniga qarab dizayn o'zgaradi -->
+                                    {% if item.total_nb >= 5 %}
+                                        <div class="d-flex align-items-center text-danger fw-bold px-3 py-2 bg-danger bg-opacity-10 rounded">
+                                            <i class="fa-solid fa-triangle-exclamation fa-lg me-2"></i> 
+                                            <span>Kritik holat! Ota-onangizga xat yuborildi. Dekanatga uchrashing.</span>
+                                        </div>
+                                    {% elif item.total_nb >= 3 %}
+                                        <div class="d-flex align-items-center text-warning fw-bold px-3 py-2 bg-warning bg-opacity-10 rounded" style="color: #d97706 !important;">
+                                            <i class="fa-solid fa-circle-exclamation fa-lg me-2"></i> 
+                                            <span>Ogohlantirish! Ota-onangizga xabar ketgan.</span>
+                                        </div>
+                                    {% else %}
+                                        <div class="d-flex align-items-center text-success fw-bold px-3 py-2 bg-success bg-opacity-10 rounded">
+                                            <i class="fa-solid fa-check-circle fa-lg me-2"></i> 
+                                            <span>Holat me'yorda.</span>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <!-- Agar umuman NB si bo'lmasa chiroyli "Tabrik" ekrani chiqadi -->
+                <div class="text-center py-5">
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 100px; height: 100px;">
+                        <i class="fa-solid fa-medal fa-3x"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark">Ajoyib natija!</h3>
+                    <p class="text-muted fs-5">Sizda hozircha hech qanday qoldirilgan darslar (NB) mavjud emas.<br>Shunday davom eting!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

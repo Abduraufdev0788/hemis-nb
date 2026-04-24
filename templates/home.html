@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block auth_content %}
+<div class="text-center" style="max-width: 850px; padding: 20px; animation: fadeIn 0.8s ease-in-out;">
+    
+    <!-- Animatsiya uchun kichik CSS -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-icon {
+            font-size: 90px;
+            background: -webkit-linear-gradient(45deg, #4318FF, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero-btn {
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .hero-btn-outline {
+            background-color: white;
+            color: #4318FF;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .hero-btn-outline:hover {
+            border-color: #4318FF;
+            transform: translateY(-3px);
+        }
+        .hero-btn-primary {
+            box-shadow: 0 4px 15px rgba(67, 24, 255, 0.3);
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 24, 255, 0.4);
+        }
+    </style>
+
+    <!-- Asosiy Kontent -->
+    <i class="fa-solid fa-graduation-cap hero-icon"></i>
+    <h1 class="display-4 fw-bold text-dark mb-4" style="letter-spacing: -1px;">
+        Talabalar Davomatini Boshqarish Tizimi
+    </h1>
+    
+    <p class="lead text-secondary mb-5" style="line-height: 1.8; font-size: 20px;">
+        O'qituvchilar uchun qulay yo'qlama qilish interfeysi. Talabalar va ota-onalar uchun shaffof davomat nazorati. Barchasi bitta aqlli tizimda jamlangan.
+    </p>
+    
+    <!-- Tugmalar -->
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="{% url 'login' %}" class="btn btn-primary-custom text-white hero-btn hero-btn-primary">
+            <i class="fa-solid fa-right-to-bracket me-2"></i> Tizimga Kirish
+        </a>
+        <a href="{% url 'register' %}" class="btn btn-light hero-btn hero-btn-outline">
+            <i class="fa-solid fa-user-plus me-2"></i> Talaba bo'lib qo'shilish
+        </a>
+    </div>
+    
+    <!-- Eslatma qismi -->
+    <div class="mt-5 p-4 bg-white rounded-4 shadow-sm mx-auto" style="max-width: 600px; border: 1px solid #e0e5f2;">
+        <div class="d-flex align-items-center text-start">
+            <div class="me-3">
+                <i class="fa-brands fa-telegram fa-3x" style="color: #0088cc;"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-1 text-dark">Ota-onalar uchun eslatma!</h6>
+                <p class="text-muted small mb-0">Farzandingizning davomatidan xabardor bo'lish uchun avval bizning Telegram botimizdan ro'yxatdan o'tishingiz lozim.</p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

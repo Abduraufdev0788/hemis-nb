@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h5 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-book-open"></i> Mening Fanlarim va Guruhlarim</h5>
+    </div>
+</div>
+
+<div class="row">
+    {% for subject in subjects %}
+        {% for group in groups %}
+        <div class="col-md-4 mb-4">
+            <div class="custom-card h-100 position-relative" style="border-top: 4px solid #4318FF;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-light text-primary border border-primary px-3 py-2 rounded-pill">
+                        <i class="fa-solid fa-layer-group"></i> {{ group.name }}
+                    </span>
+                </div>
+                <h4 class="fw-bold text-dark mb-1">{{ subject.name }}</h4>
+                <p class="text-muted small mb-4">Bugungi sana: {% now "j-F, Y" %}</p>
+                
+                <a href="{% url 'mark_attendance' group.id subject.id %}" class="btn btn-primary-custom text-white w-100 d-block text-center">
+                    <i class="fa-solid fa-check-double me-2"></i> Yo'qlama qilish
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% empty %}
+        <div class="col-12 text-center text-muted mt-5">
+            <i class="fa-solid fa-folder-open fa-3x mb-3 text-light"></i>
+            <h5>Sizga biriktirilgan fanlar topilmadi.</h5>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block auth_content %}
+<div class="custom-card" style="width: 100%; max-width: 450px;">
+    <div class="text-center mb-4">
+        <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-3" style="width: 60px; height: 60px; font-size: 24px;">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <h3 class="fw-bold text-dark">Tizimga kirish</h3>
+        <p class="text-muted">Profilingizga kirish uchun ma'lumotlarni kiriting</p>
+    </div>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label text-muted fw-bold">Login (Username)</label>
+            <input type="text" name="username" class="form-control" placeholder="Loginingizni kiriting" required>
+        </div>
+        <div class="mb-4">
+            <label class="form-label text-muted fw-bold">Parol</label>
+            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button class="btn btn-primary-custom w-100 text-white" type="submit">Kirish</button>
+    </form>
+    
+    <div class="text-center mt-4">
+        <p class="text-muted mb-0">Talabamisiz? 
+            <a href="{% url 'register' %}" class="text-primary fw-bold text-decoration-none">Ro'yxatdan o'tish</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

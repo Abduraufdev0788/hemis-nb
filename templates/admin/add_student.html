@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="custom-card shadow-sm border-top" style="border-width: 4px !important; border-color: #10b981 !important;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0"><i class="fa-solid fa-user-graduate text-success me-2"></i> Talaba Qo'shish</h4>
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-light shadow-sm"><i class="fa-solid fa-arrow-left"></i> Orqaga</a>
+            </div>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-muted fw-bold">Login</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-muted fw-bold">Parol</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted fw-bold">F.I.O</label>
+                    <input type="text" name="first_name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted fw-bold">Qaysi guruhga?</label>
+                    <select name="group" class="form-control" required>
+                        <option value="">Guruhni tanlang</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label text-muted fw-bold">Ota-onaning botdagi raqami</label>
+                    <input type="text" name="parent_phone" class="form-control border-warning" placeholder="Misol: 998901234567" required>
+                    <small class="text-muted"><i class="fa-solid fa-circle-info text-warning"></i> Ota-ona botdan start bosgan bo'lishi shart.</small>
+                </div>
+                <button type="submit" class="btn btn-success w-100 text-white"><i class="fa-solid fa-save me-2"></i> Saqlash</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

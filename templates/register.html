@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block auth_content %}
+<div class="custom-card shadow-sm" style="width: 100%; max-width: 500px; border-top: 4px solid #10b981;">
+    <div class="text-center mb-4">
+        <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle mb-3 shadow-sm" style="width: 60px; height: 60px; font-size: 24px;">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h3 class="fw-bold text-dark">Ro'yxatdan o'tish</h3>
+        <p class="text-muted">Tizimdan foydalanish uchun ma'lumotlaringizni kiriting</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted fw-bold"><i class="fa-solid fa-user me-1"></i> Login</label>
+                <input type="text" name="username" class="form-control bg-light" placeholder="Login yarating" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted fw-bold"><i class="fa-solid fa-key me-1"></i> Parol</label>
+                <input type="password" name="password" class="form-control bg-light" placeholder="••••••••" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-muted fw-bold"><i class="fa-solid fa-id-card me-1"></i> F.I.O</label>
+            <input type="text" name="first_name" class="form-control bg-light" placeholder="To'liq ismingizni kiriting" required>
+        </div>
+
+        <!-- Bot raqami kiritish joyi -->
+        <div class="alert alert-warning border-0 bg-warning bg-opacity-10 mt-4 mb-3" role="alert">
+            <div class="d-flex">
+                <div class="me-3">
+                    <i class="fa-solid fa-robot text-warning fa-2x"></i>
+                </div>
+                <div>
+                    <strong class="text-dark">Muhim bosqich!</strong><br>
+                    <span class="small text-muted">Telegram botga ulangan ota-onangizning raqamini kiriting. Usiz akkaunt tasdiqlanmaydi.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label text-muted fw-bold"><i class="fa-solid fa-phone me-1"></i> Ota-ona telefon raqami</label>
+            <input type="text" name="parent_phone" class="form-control border-warning" placeholder="Masalan: 998901234567" required>
+        </div>
+
+        <button class="btn btn-success w-100 text-white shadow-sm" style="border-radius: 10px; padding: 12px; font-weight: 500;" type="submit">
+            Tizimga qo'shilish <i class="fa-solid fa-arrow-right ms-2"></i>
+        </button>
+    </form>
+
+    <div class="text-center mt-4">
+        <p class="text-muted mb-0">Akkauntingiz bormi? 
+            <a href="{% url 'login' %}" class="text-success fw-bold text-decoration-none">Kirish</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
