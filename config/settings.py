@@ -25,7 +25,7 @@ INSTALLED_APPS =[
 
     # O'zimiz yaratgan app'lar
     'users',
-    'attendance',
+    'attendance.apps.AttendanceConfig',
 ]
 
 # Oraliq dasturlar (Login, xavfsizlik va sessiyalar uchun majburiy)
@@ -98,4 +98,4 @@ LOGIN_REDIRECT_URL = 'dashboard_redirect'
 LOGIN_URL = 'login'
 
 # Telegram Bot Token (O'zingiznikiga almashtiring)
-TELEGRAM_BOT_TOKEN = '8729937214:AAFHODgB4MOh15DSI0mnPydsxTA_NsB3f-A'
+TELEGRAM_BOT_TOKEN = '8713217472:AAGa96wzzzBvPfXrC1yG_LHXn72J6RQdQ_I'

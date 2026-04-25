@@ -2,15 +2,20 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Attendance
 from django.conf import settings
+
 import requests
+print("SIGNALS LOADED 🚀")
 
 def send_telegram_alert(chat_id, text):
     token = settings.TELEGRAM_BOT_TOKEN
     url = f"https://api.telegram.org/bot{token}/sendMessage"
+    print(f"Sending Telegram alert to chat_id {chat_id} with text: {text}")
     requests.post(url, data={'chat_id': chat_id, 'text': text, 'parse_mode': 'HTML'})
 
 @receiver(post_save, sender=Attendance)
 def check_absences_and_notify(sender, instance, created, **kwargs):
+    print("PARENT:", instance.student.parent)
+    print("TELEGRAM ID:", getattr(instance.student.parent, "telegram_id", None))
     # Agar yangi yo'qlama yaratilsa va u "Kelmadi (NB)" bo'lsa
     if instance.pk and not instance.is_present:
         student = instance.student
@@ -27,8 +32,8 @@ def check_absences_and_notify(sender, instance, created, **kwargs):
             subject_name = instance.subject.name
             student_name = student.user.get_full_name() or student.user.username
 
-            if nb_count == 3:
-                msg = f"⚠️ <b>Ogohlantirish!</b>\nFarzandingiz <b>{student_name}</b> bugun <b>{subject_name}</b> fanidan dars qoldirdi.\nJami NB lar soni: 3 ta."
+            if nb_count >= 3:
+                msg = f"⚠️ <b>Ogohlantirish!</b>\nFarzandingiz <b>{student_name}</b> bugun <b>{subject_name}</b> fanidan dars qoldirdi.\nJami NB lar soni: {nb_count} ta."
                 send_telegram_alert(parent.telegram_id, msg)
             
             elif nb_count >= 5:

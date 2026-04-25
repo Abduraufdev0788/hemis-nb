@@ -16,13 +16,24 @@ class ParentCreateAPIView(APIView):
         name = request.data.get('name')
 
         if not all([telegram_id, phone_number, name]):
-            return Response({"error": "Ma'lumot to'liq emas!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Ma'lumot to'liq emas!"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         
-        # Ota-onani saqlash
+        # Telefon raqamni tozalash
+        clean_phone = phone_number.replace('+', '')
+
+        # Ota-onani saqlash yoki bazadan olish
         parent, created = Parent.objects.get_or_create(
-            phone_number=phone_number.replace('+', ''), # raqamni tozalab saqlash
+            phone_number=clean_phone,
             defaults={'telegram_id': telegram_id, 'name': name}
         )
+
+        # Agar bazada allaqachon bor bo'lsa
+        if not created:
+            return Response(
+                {"message": "Ushbu raqam bazada allaqachon ro'yxatdan o'tgan!"}, 
+                status=status.HTTP_400_BAD_REQUEST # yoki 200_OK, loyihangiz mantig'iga qarab
+            )
+
         return Response({"message": "Muvaffaqiyatli saqlandi"}, status=status.HTTP_201_CREATED)
     
 

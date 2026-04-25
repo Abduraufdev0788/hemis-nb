@@ -26,7 +26,7 @@ class Attendance(models.Model):
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='attendances')
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    is_present = models.BooleanField(default=False) # False = Kelmadi (NB)
+    is_present = models.BooleanField(default=True) # False = Kelmadi (NB)
 
     class Meta:
         unique_together = ('student', 'subject', 'date')

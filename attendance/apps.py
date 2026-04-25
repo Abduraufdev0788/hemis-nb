@@ -5,4 +5,4 @@ class AttendanceConfig(AppConfig):
     name = 'attendance'
 
     def ready(self):
-        import attendance.signals # Signal ishlashi uchun import
+        import attendance.signals 
