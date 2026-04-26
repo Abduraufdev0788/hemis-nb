@@ -55,25 +55,36 @@ def register_student(request):
         username = request.POST.get('username')
         first_name = request.POST.get('first_name')
         password = request.POST.get('password')
-        parent_phone = request.POST.get('parent_phone').replace('+', '')
+        parent_phone = request.POST.get('parent_phone').replace('+', '').replace(' ', '')
 
-        # User yaratamiz
+        # Parentni aniq topamiz
+        parent = Parent.objects.filter(phone_number=parent_phone).first()
+
+        if not parent:
+            from django.contrib import messages
+            messages.error(request, "Ota-ona botdan ro'yxatdan o'tmagan!")
+            return redirect('register')
+
+        # User yaratamiz (student o'z telefoni bo‘lsa qo‘sh)
         user = CustomUser.objects.create_user(
-            username=username, password=password, first_name=first_name, role='student'
+            username=username,
+            password=password,
+            first_name=first_name,
+            role='student'
         )
-        
-        # Ota-onani raqam orqali topamiz (Bot orqali start bosgan bo'lishi kerak)
-        parent = Parent.objects.filter(phone_number__contains=parent_phone).first()
-        
-        # Talaba profilini yaratish
-        StudentProfile.objects.create(user=user, parent=parent)
-        
+
+        # StudentProfile yaratamiz
+        StudentProfile.objects.create(
+            user=user,
+            parent=parent
+        )
+
         return redirect('login')
+
     return render(request, 'register.html')
 
 
 
-# users/views.py ichidagi qismni shunga almashtiring:
 
 @login_required
 def dashboard_redirect(request):
